@@ -12,11 +12,12 @@ filetype plugin indent on
 " Configuration
 " -------------
 
-colorscheme jellybeans
+colorscheme ir_black
 set encoding=utf-8
 set t_Co=256
 set visualbell                  " Suppress audio/visual error bell
-set notimeout                   " No command timeout
+set ttimeout
+set ttimeoutlen=50
 set showcmd                     " Show typed command prefixes while waiting for operator
 
 set number                      " Line numbers
@@ -54,9 +55,6 @@ autocmd FocusLost * silent! wall
 
 let mapleader = ","
 let maplocalleader = ";"
-
-" kj - The intuitive way to get out of insert mode
-imap kj         <Esc>
 
 " Make Y consistent with D and C
 map Y           y$

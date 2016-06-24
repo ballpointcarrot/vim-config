@@ -8,9 +8,9 @@
 ## Nvim:
   Symlink the init.vim within this repository as follows:
 
-  `cd /path/to/repo/init.vim ~/$XDG\_CONFIG\_HOME/nvim/init.vim`
+  `cd /path/to/repo/init.vim ~/$XDG_CONFIG_HOME/nvim/init.vim`
 
-  *Note: if `$XDG\_CONFIG\_HOME` is not defined, use `$HOME/.config` instead*
+  *Note: if `$XDG_CONFIG_HOME` is not defined, use `$HOME/.config` instead*
 
 Launch your editor. On the first run, there may be an error about a missing colorscheme.
 Once started, run the command `:PlugInstall,` and let the installation run. Restart your editor.

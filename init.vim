@@ -83,6 +83,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'junegunn/vim-easy-align'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
+Plug 'sheerun/vim-polyglot'
 Plug 'jamessan/vim-gnupg'
 Plug 'jbgutierrez/vim-babel', { 'for': 'javascript' }
 Plug 'mustache/vim-mustache-handlebars', { 'for' : 'mustache' }
@@ -202,6 +203,9 @@ autocmd BufWritePre *.java,*.php :%s/\s\+$//e
 
 " Highlight JSON files as javascript
 autocmd BufRead,BufNewFile *.json,*.template set filetype=javascript
+
+" Highlight EDN as Clojure
+autocmd BufRead,BufNewFile *.edn set filetype=clojure
 
 " Highlight Jasmine fixture files as HTML
 autocmd BufRead,BufNewFile *.jasmine_fixture set filetype=html

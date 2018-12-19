@@ -80,10 +80,19 @@ Plug 'tpope/vim-fugitive'
 Plug 'w0rp/ale'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'ajh17/VimCompletesMe'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+  Plug 'Shougo/neco-vim'
+else
+  Plug 'ajh17/VimCompletesMe'
+endif
 Plug 'sheerun/vim-polyglot'
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+Plug 'rust-lang/rust.vim'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'farmergreg/vim-lastplace'
 call plug#end()
@@ -104,7 +113,7 @@ let g:NERDTreeChDirMode = 2
 let NERDSpaceDelims = 1
 
 " Colorschemes
-colorscheme neverland2
+colorscheme tigrana-256-dark
 set background=dark
 " Airline
 let g:airline_theme = 'cool'
@@ -131,12 +140,27 @@ map <leader>g :Gblame<CR>
 " Tagbar
 map <leader>r :TagbarOpenAutoClose<CR>
 
-" UltiSnips
-let g:UltiSnipsExpandTrigger = '<C-k>'
-let g:UltiSnipsListSnippets = '<F5>'
+if has('nvim')
+  " Deoplete
+  let g:deoplete#enable_at_startup = 1
+  " UltiSnips
+  let g:UltiSnipsExpandTrigger = '<nop>'
+  let g:UltiSnipsListSnippets = '<nop>'
 
-" EasyTags
-set tags=$HOME/.vimtags,./tags,./.tags,./.vimtags
+  " Language Client
+  let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': [''],
+    \ 'python': ['pyls'],
+    \ }
+
+else
+  " UltiSnips
+  let g:UltiSnipsExpandTrigger = '<C-k>'
+  let g:UltiSnipsListSnippets = '<F5>'
+endif
+set tags=gHOME/.vimtags,./tags,./.tags,./.vimtags
 
 """"""""""""""""""""""""""
 " Filetype Configuration "

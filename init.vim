@@ -1,8 +1,5 @@
-" Vim configuration.
+" Vim configuration
 
-"""""""""""""""""""""""""""""
-" Built-in system settings. "
-"""""""""""""""""""""""""""""
 set number
 set nowrap
 set ignorecase
@@ -10,7 +7,7 @@ set smartcase
 set expandtab
 set shiftwidth=2
 
-" Show whitespace chars (tabs, trailing spaces)
+" Show trailing whitespace
 set list
 set listchars=tab:>\ ,trail:+
 
@@ -37,154 +34,119 @@ set autowriteall
 autocmd FocusLost * silent! wall
 
 """"""""""""""""
-" Key mappings "
+" Key Mappings "
 """"""""""""""""
 
 let mapleader = ","
 let maplocalleader = ";"
 
-map Y  y$
+map Q <Nop>
+map Y y$
 map <leader>v :vsp<CR>
-map <leader>w   ^Ww
-map <leader>=   ^W=
-map <leader>j   ^Wj
-map <leader>k   ^Wk
+map <leader>w <C-w>w
+map <leader>= <C-w>=
+map <leader>j <C-w>j
+map <leader>k <C-w>k
 
-vmap <tab>  >gv
+vmap <tab> >gv
 vmap <S-tab> <gv
-
 vmap <leader>s :s/
-nmap <leader>s :%s/
-
-nmap <space> <C-d>
 vmap <space> <C-d>
 
-map \  :NERDTreeToggle<CR>
-map \| :NERDTreeFind<CR>
+nmap <leader>s :%s/
+nmap <space> <C-d>
 
 """""""""""""""""""""
 " Plugin Management "
 """""""""""""""""""""
-call plug#begin('~/.vim/plugged')
 
-function! DoRemote(arg)
-	UpdateRemotePlugins
-endfunction
+call plug#begin("~/.vim/plugged")
 
-" Add plugins here...
-Plug 'neomake/neomake'
-Plug 'scrooloose/nerdcommenter'
+" Add plugins here
+" Plug 'neomake/neomake'
+Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
-Plug 'benekastah/neomake', {'on': 'Neomake'}
-Plug 'bogado/file-line'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'easymotion/vim-easymotion'
+Plug 'scrooloose/nerdcommenter'
 Plug 'flazz/vim-colorschemes'
-Plug 'junegunn/vim-easy-align'
-Plug 'kien/rainbow_parentheses.vim'
-Plug 'isRuslan/vim-es6', { 'for': 'javascript' }
-Plug 'sheerun/vim-polyglot'
-Plug 'jamessan/vim-gnupg'
-Plug 'jbgutierrez/vim-babel', { 'for': 'javascript' }
-Plug 'mustache/vim-mustache-handlebars', { 'for' : 'mustache' }
-Plug 'rking/ag.vim'
-Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-surround'
-Plug 'racer-rust/vim-racer'
-Plug 'nsf/gocode'
-Plug 'wting/rust.vim'
-Plug 'cespare/vim-toml'
-Plug 'vim-scripts/OmniCppComplete'
-Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-fugitive'
-Plug 'shougo/neosnippet.vim'
-Plug 'shougo/neosnippet-snippets'
-Plug 'honza/vim-snippets'
-Plug 'plasticboy/vim-markdown'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-
+Plug 'chrisbra/Colorizer'
+Plug 'jamessan/vim-gnupg'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'ajh17/VimCompletesMe'
+Plug 'sheerun/vim-polyglot'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+Plug 'majutsushi/tagbar'
+Plug 'farmergreg/vim-lastplace'
 call plug#end()
 
-""""""""""""""""""
-" Plugin Options "
-""""""""""""""""""
+"""""""""""""""""""""""""""""""""
+" Plugin-specific Configuration "
+"""""""""""""""""""""""""""""""""
 
-colorscheme cleanroom
-set background=dark
-let g:airline_theme = 'cool'
-" let g:lightline = { 'colorscheme': 'gotham256'}
+" NERDTree
+map \ :NERDTreeToggle<CR>
+map \| :NERDTreeFind<CR>
 
-" Configuration for CtrlP
-let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\.git$\|\.hg$\|\.svn$',
-      \ 'file': '\.exe$\|\.so$\|\.dll$',
-      \ }
+let g:NERDTreeWinSize = 20
+let g:NERDTreeChDirMode = 2
 
-let g:ctrlp_user_command = {
-      \   'types': {
-      \       1: ['.git/', 'cd %s && git ls-files']
-      \   },
-      \   'fallback': 'find %s -type f | head -' . 10000
-      \ }
-
-" Snippets via neosnippet
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-" Tab autocomplete via deoplete
-inoremap <expr><tab> pumvisible() ? "\<C-n>" : "\<tab>"
-
-" Enable rainbow delimiters 
-
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
-
-" Pad comment delimeters with spaces
+" NERDCommenter
+" Pads comments with a space
 let NERDSpaceDelims = 1
 
-" Small default width for NERDTree pane
-let g:NERDTreeWinSize = 20
-
-" Change working directory if you change root directories
-let g:NERDTreeChDirMode=2
-
-" add snippet directory
-let g:neosnippet#enable_snipmate_compatibility = 1
-let g:neosnippet#snippets_directory = "~/.vim/plugged/vim-snippets/snippets"
-
-" Deoplete settings
-let g:deoplete#enable_at_startup=1
-if !exists('g:deoplete#omni#input_patterns')
-	let g:deoplete#omni#input_patterns = {}
-endif
-
-" Git blame
-map <leader>g   :Gblame<CR>
+" Colorschemes
+colorscheme neverland2
+set background=dark
+" Airline
+let g:airline_theme = 'cool'
 
 " CtrlP
-nmap <leader>t  :CtrlPCurWD<CR>
-nmap <leader>b  :CtrlPBuffer<CR>
-nmap <leader>m  :CtrlPMRU<CR>
+let g:ctrlp_custom_ignore = {
+    \ 'dir': '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$',
+    \ }
 
-" Neomake
-nmap <leader>a :Neomake<CR>
+let g:ctrlp_user_command = {
+    \   'types': {
+    \     1: ['.git/', 'cd %s && git ls-files']},
+    \   'fallback': 'find %s -type f | head -' . 10000
+    \ }
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Whitespace & highlighting & language-specific config "
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>t :CtrlPCurWD<CR>
+nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>m :CtrlPMRU<CR>
 
-autocmd! BufWritePost,BufEnter * Neomake
+" Fugitive (Git)
+map <leader>g :Gblame<CR>
+
+" Tagbar
+map <leader>r :TagbarOpenAutoClose<CR>
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger = '<C-k>'
+let g:UltiSnipsListSnippets = '<F5>'
+
+" EasyTags
+set tags=$HOME/.vimtags,./tags,./.tags,./.vimtags
+
+""""""""""""""""""""""""""
+" Filetype Configuration "
+""""""""""""""""""""""""""
+
+" JSON as Javascript
+autocmd BufRead,BufNewFile *.json,*.template set filetype=javascript
+
+" EDN as Clojure
+autocmd BufRead,BufNewFile *.edn set filetype=clojure
 
 " Strip trailing whitespace for code files on save
 " C family
@@ -195,44 +157,24 @@ autocmd BufWritePre *.rb,*.yml,*.js,*.json,*.css,*.less,*.sass,*.html,*.xml,*.er
 au BufRead,BufNewFile *.thor set filetype=ruby
 au BufRead,BufNewFile *.god set filetype=ruby
 au BufRead,BufNewFile Gemfile* set filetype=ruby
-au BufRead,BufNewFile Vagrantfile set filetype=ruby
-au BufRead,BufNewFile soloistrc set filetype=ruby
-
-" Java, PHP
-autocmd BufWritePre *.java,*.php :%s/\s\+$//e
-
-" Highlight JSON files as javascript
-autocmd BufRead,BufNewFile *.json,*.template set filetype=javascript
-
-" Highlight EDN as Clojure
-autocmd BufRead,BufNewFile *.edn set filetype=clojure
-
-" Highlight Jasmine fixture files as HTML
-autocmd BufRead,BufNewFile *.jasmine_fixture set filetype=html
-
 " Consider question/exclamation marks to be part of a Vim word.
 autocmd FileType ruby set iskeyword=@,48-57,_,?,!,192-255
 autocmd FileType scss set iskeyword=@,48-57,_,-,?,!,192-255
-
-" Locate Rust source code path
-let $RUST_SRC_PATH="/home/ckruse/src/rustc-1.9.0/src"
-let g:racer_cmd = "/home/ckruse/.cargo/bin/racer"
 
 " let python have 4 spaces, otherwise there are complaints...
 autocmd FileType python setlocal shiftwidth=4
 
 " Set up omnicomplete functions
 augroup omnifuncs
-	autocmd!
-	autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-	autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-	autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
-	autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-	autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-	autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd!
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 augroup end
 
-" Disable 'ex' mode
-map Q <Nop>
-
+" Java, PHP
+autocmd BufWritePre *.java,*.php :%s/\s\+$//e

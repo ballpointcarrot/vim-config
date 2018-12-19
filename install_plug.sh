@@ -8,6 +8,6 @@ URL="https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs $URL
 
 # For Neovim
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs $URL
+curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs $URL
 
 echo "Installation complete. Run \":PlugInstall\" on first run."
